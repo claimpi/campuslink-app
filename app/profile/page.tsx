@@ -172,7 +172,7 @@ export default function ProfilePage() {
         Sign Out
       </button>
 
-      <BottomNav active="profile" />
+      <BottomNav />
     </div>
   );
 }
