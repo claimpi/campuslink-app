@@ -6,17 +6,19 @@ const syne = Syne({
   subsets: ['latin'],
   weight: ['400', '600', '700', '800'],
   variable: '--font-syne',
+  display: 'swap',
 });
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-dm-sans',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'CampusLink — Find Your Match',
-  description: 'The premium dating platform for Kenyan students. Find meaningful connections near you.',
+  title: 'CampusLink',
+  description: 'Find your match. Made for Kenya.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
@@ -25,30 +27,34 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'CampusLink — Find Your Match',
-    description: 'The premium dating platform for Kenyan students.',
+    description: 'The premium dating app for Kenyan young adults.',
     type: 'website',
     images: ['/og-image.png'],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FF3366',
+  themeColor: '#0A0A0F',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
-      <body className={`${syne.variable} ${dmSans.variable} font-body bg-white dark:bg-[#0A0A0F] text-gray-900 dark:text-white antialiased`}>
-        {children}
+      <body className={`${syne.variable} ${dmSans.variable} font-body`}>
+        <div id="app-shell">
+          {children}
+        </div>
       </body>
     </html>
   );

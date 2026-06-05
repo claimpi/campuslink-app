@@ -5,90 +5,120 @@
 :root {
   --font-syne: 'Syne', sans-serif;
   --font-dm-sans: 'DM Sans', sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-@layer base {
-  * { box-sizing: border-box; }
-  
-  html {
-    -webkit-tap-highlight-color: transparent;
-    scroll-behavior: smooth;
-  }
+/* Force mobile app feel */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-  body {
-    overscroll-behavior: none;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(255, 51, 102, 0.3); border-radius: 2px; }
+html {
+  overscroll-behavior: none;
+  overflow: hidden;
+  height: 100%;
 }
+
+body {
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  overflow: hidden;
+  background: #0A0A0F;
+  /* Prevent pull-to-refresh */
+  position: fixed;
+  width: 100%;
+}
+
+/* App shell — full screen like native */
+#app-shell {
+  height: 100dvh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  background: #0A0A0F;
+}
+
+/* Scrollable screens */
+.screen {
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* No scrollbar */
+.screen::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.screen, .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Safe area padding */
+.pt-safe { padding-top: calc(var(--safe-top) + 16px); }
+.pb-safe { padding-bottom: calc(var(--safe-bottom) + 16px); }
+.pb-nav { padding-bottom: calc(var(--safe-bottom) + 72px); }
+
+/* Status bar height */
+.status-bar-height { height: calc(var(--safe-top) + 44px); }
 
 @layer components {
-  .font-heading { font-family: var(--font-syne); }
-  .font-body { font-family: var(--font-dm-sans); }
-
-  .glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
   .glass-dark {
-    background: rgba(28, 28, 39, 0.85);
+    background: rgba(28, 28, 39, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.07);
   }
 
-  .gradient-primary {
-    background: linear-gradient(135deg, #FF3366, #FF6B35);
+  .glass-light {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
   }
 
-  .gradient-secondary {
-    background: linear-gradient(135deg, #7B2FBE, #FF3366);
+  .gradient-primary { background: linear-gradient(135deg, #FF3366, #FF6B35); }
+  .gradient-secondary { background: linear-gradient(135deg, #7B2FBE, #FF3366); }
+  .gradient-gold { background: linear-gradient(135deg, #FFD700, #FF8C00); }
+  .gradient-ocean { background: linear-gradient(135deg, #00C9FF, #0066FF); }
+
+  .btn-press { @apply active:scale-95 transition-transform duration-75; }
+
+  /* Input style */
+  .app-input {
+    @apply w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3.5 text-white 
+           placeholder-gray-500 focus:outline-none focus:border-primary transition-colors text-base;
   }
 
-  .gradient-gold {
-    background: linear-gradient(135deg, #FFD700, #FF8C00);
+  /* Card */
+  .app-card {
+    @apply bg-[#1C1C27] rounded-3xl border border-white/5;
   }
 
-  .card-shadow {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  }
-
-  .card-shadow-dark {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Swipe card touch */
+  /* Swipe card */
   .swipe-card {
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
-    cursor: grab;
-  }
-  .swipe-card:active { cursor: grabbing; }
-
-  /* Mobile bottom nav safe area */
-  .bottom-safe {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
-  /* Hide scrollbar */
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-  /* Input focus ring */
-  .input-focus {
-    @apply outline-none ring-0 border-2 border-gray-200 dark:border-gray-700 focus:border-primary transition-colors;
-  }
-
-  /* Button press */
-  .btn-press {
-    @apply active:scale-95 transition-transform;
+  /* Tab bar */
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    height: calc(60px + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 0.5px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 }
