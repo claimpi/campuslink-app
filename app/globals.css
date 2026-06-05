@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-syne: 'Syne', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255, 51, 102, 0.3); border-radius: 2px; }
+}
+
+@layer components {
+  .font-heading { font-family: var(--font-syne); }
+  .font-body { font-family: var(--font-dm-sans); }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-dark {
+    background: rgba(28, 28, 39, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, #FF3366, #FF6B35);
+  }
+
+  .gradient-secondary {
+    background: linear-gradient(135deg, #7B2FBE, #FF3366);
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, #FFD700, #FF8C00);
+  }
+
+  .card-shadow {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-shadow-dark {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Swipe card touch */
+  .swipe-card {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .swipe-card:active { cursor: grabbing; }
+
+  /* Mobile bottom nav safe area */
+  .bottom-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Input focus ring */
+  .input-focus {
+    @apply outline-none ring-0 border-2 border-gray-200 dark:border-gray-700 focus:border-primary transition-colors;
+  }
+
+  /* Button press */
+  .btn-press {
+    @apply active:scale-95 transition-transform;
+  }
+}
