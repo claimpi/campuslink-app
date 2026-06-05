@@ -1,4 +1,3 @@
-// lib/supabase/server.ts
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
@@ -19,5 +18,15 @@ export function createClient() {
         },
       },
     }
+  );
+}
+
+// Admin client — bypasses RLS, use only in server actions/API routes
+export function createAdminClient() {
+  const { createClient } = require('@supabase/supabase-js');
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } }
   );
 }
