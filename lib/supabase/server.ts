@@ -21,7 +21,7 @@ export function createClient() {
   );
 }
 
-// Admin client — bypasses RLS, use only in server actions/API routes
+// Admin client — bypasses RLS, server-side only
 export function createAdminClient() {
   const { createClient } = require('@supabase/supabase-js');
   return createClient(
