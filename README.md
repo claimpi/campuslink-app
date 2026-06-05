@@ -7,14 +7,18 @@
 ### 1. Import on Vercel
 Go to → https://vercel.com/new → Import `claimpi/campuslink-app`
 
-### 2. Add Environment Variables (copy these exactly)
+### 2. Add Environment Variables
 
-| Variable | Value |
-|----------|-------|
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://hmilpoprosjoskhsjlbo.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtaWxwb3Byb3Nqb3NraHNqbGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2Njc4MjYsImV4cCI6MjA5NjI0MzgyNn0._P77nu9ddrQ9njGwjKP_gzcAIItlVA6cE1lROl39Dzs` |
-| `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtaWxwb3Byb3Nqb3NraHNqbGJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MDY2NzgyNiwiZXhwIjoyMDk2MjQzODI2fQ.F9lr--Mu9CY0LCOVYmksMS0VuZuCFVLtVZLl17L4vXU` |
-| `NEXT_PUBLIC_APP_URL` | `https://campuslink-app.vercel.app` |
+Set these in Vercel Dashboard → Project → Settings → Environment Variables:
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anon/public key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key (keep secret!) |
+| `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL |
+
+> ⚠️ Never commit actual key values to the repo. Use Vercel's environment variable dashboard.
 
 ### 3. Click Deploy 🚀
 
@@ -33,15 +37,15 @@ Go to → https://vercel.com/new → Import `claimpi/campuslink-app`
 - 💬 Real-time chat (Supabase Realtime)
 - 🪙 Campus Coins economy
 - 💎 Premium subscriptions (Silver/Gold/Platinum)
-- 📱 PWA — add to home screen, works offline
-- 🌙 Dark mode by default
+- 📱 PWA — add to home screen
+- 🌙 Dark mode
 - 🛡️ RLS security on all tables
 - 💳 PesaPal IPN webhook at `/api/pesapal/ipn`
 
 ## Local Development
 ```bash
 cp .env.example .env.local
-# fill in .env.local with your values
+# fill in .env.local with your Supabase values
 npm install
 npm run dev
 ```
